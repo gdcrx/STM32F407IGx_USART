@@ -1,21 +1,21 @@
 
-/* °üº¬Í·ÎÄ¼þ ----------------------------------------------------------------*/
+/* åŒ…å«å¤´æ–‡ä»¶ ----------------------------------------------------------------*/
 #include "bsp/bsp_usart.h"
 
-/* Ë½ÓÐÀàÐÍ¶¨Òå --------------------------------------------------------------*/
-/* Ë½ÓÐºê¶¨Òå ----------------------------------------------------------------*/
-/* Ë½ÓÐ±äÁ¿ ------------------------------------------------------------------*/
+/* ç§æœ‰ç±»åž‹å®šä¹‰ --------------------------------------------------------------*/
+/* ç§æœ‰å®å®šä¹‰ ----------------------------------------------------------------*/
+/* ç§æœ‰å˜é‡ ------------------------------------------------------------------*/
 UART_HandleTypeDef husartx;
 
-/* À©Õ¹±äÁ¿ ------------------------------------------------------------------*/
-/* Ë½ÓÐº¯ÊýÔ­ÐÎ --------------------------------------------------------------*/
-/* º¯ÊýÌå --------------------------------------------------------------------*/
+/* æ‰©å±•å˜é‡ ------------------------------------------------------------------*/
+/* ç§æœ‰å‡½æ•°åŽŸå½¢ --------------------------------------------------------------*/
+/* å‡½æ•°ä½“ --------------------------------------------------------------------*/
 
 /**
-  * º¯Êý¹¦ÄÜ: ´®¿ÚÓ²¼þ³õÊ¼»¯ÅäÖÃ
-  * ÊäÈë²ÎÊý: huart£º´®¿Ú¾ä±úÀàÐÍÖ¸Õë
-  * ·µ »Ø Öµ: ÎÞ
-  * Ëµ    Ã÷: ¸Ãº¯Êý±»HAL¿âÄÚ²¿µ÷ÓÃ
+  * å‡½æ•°åŠŸèƒ½: ä¸²å£ç¡¬ä»¶åˆå§‹åŒ–é…ç½®
+  * è¾“å…¥å‚æ•°: huartï¼šä¸²å£å¥æŸ„ç±»åž‹æŒ‡é’ˆ
+  * è¿” å›ž å€¼: æ— 
+  * è¯´    æ˜Ž: è¯¥å‡½æ•°è¢«HALåº“å†…éƒ¨è°ƒç”¨
   */
 void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 {
@@ -23,51 +23,51 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
   GPIO_InitTypeDef GPIO_InitStruct;
   if(huart->Instance==USARTx)
   {
-    /* Ê¹ÄÜ´®¿Ú¹¦ÄÜÒý½ÅGPIOÊ±ÖÓ */
+    /* ä½¿èƒ½ä¸²å£åŠŸèƒ½å¼•è„šGPIOæ—¶é’Ÿ */
     USARTx_GPIO_CLK_ENABLE();
   
-    /* ´®¿ÚÍâÉè¹¦ÄÜGPIOÅäÖÃ */
+    /* ä¸²å£å¤–è®¾åŠŸèƒ½GPIOé…ç½® */
     GPIO_InitStruct.Pin = USARTx_Tx_GPIO_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;                 // AF ¸´ÓÃ PP ÍÆÍì
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;                 // AF å¤ç”¨ PP æŽ¨æŒ½
     GPIO_InitStruct.Pull = GPIO_PULLUP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = USARTx_AFx;
-    // ÅäÖÃ·¢ËÍÒý½Å
+    // é…ç½®å‘é€å¼•è„š
     HAL_GPIO_Init(USARTx_Tx_GPIO, &GPIO_InitStruct);
-    // ÅäÖÃ½ÓÊÕÒý½Å
+    // é…ç½®æŽ¥æ”¶å¼•è„š
     GPIO_InitStruct.Pin = USARTx_Rx_GPIO_PIN;
     HAL_GPIO_Init(USARTx_Rx_GPIO, &GPIO_InitStruct);
   }
 }
 
 /**
-  * º¯Êý¹¦ÄÜ: ´®¿ÚÓ²¼þ·´³õÊ¼»¯ÅäÖÃ
-  * ÊäÈë²ÎÊý: huart£º´®¿Ú¾ä±úÀàÐÍÖ¸Õë
-  * ·µ »Ø Öµ: ÎÞ
-  * Ëµ    Ã÷: ¸Ãº¯Êý±»HAL¿âÄÚ²¿µ÷ÓÃ
+  * å‡½æ•°åŠŸèƒ½: ä¸²å£ç¡¬ä»¶ååˆå§‹åŒ–é…ç½®
+  * è¾“å…¥å‚æ•°: huartï¼šä¸²å£å¥æŸ„ç±»åž‹æŒ‡é’ˆ
+  * è¿” å›ž å€¼: æ— 
+  * è¯´    æ˜Ž: è¯¥å‡½æ•°è¢«HALåº“å†…éƒ¨è°ƒç”¨
   */
 void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 {
 
   if(huart->Instance==USARTx)
   {
-    /* ´®¿ÚÍâÉèÊ±ÖÓ½ûÓÃ */
+    /* ä¸²å£å¤–è®¾æ—¶é’Ÿç¦ç”¨ */
     USART_RCC_CLK_DISABLE();
   
-    /* ´®¿ÚÍâÉè¹¦ÄÜGPIOÅäÖÃ */
+    /* ä¸²å£å¤–è®¾åŠŸèƒ½GPIOé…ç½® */
     HAL_GPIO_DeInit(USARTx_Tx_GPIO, USARTx_Tx_GPIO_PIN);
     HAL_GPIO_DeInit(USARTx_Rx_GPIO, USARTx_Rx_GPIO_PIN);
     
-    /* ´®¿ÚÖÐ¶Ï½ûÓÃ */
+    /* ä¸²å£ä¸­æ–­ç¦ç”¨ */
     HAL_NVIC_DisableIRQ(USARTx_IRQn);
   }
 }
 
 /**
-  * º¯Êý¹¦ÄÜ: NVICÅäÖÃ
-  * ÊäÈë²ÎÊý: ÎÞ
-  * ·µ »Ø Öµ: ÎÞ
-  * Ëµ    Ã÷: ÎÞ
+  * å‡½æ•°åŠŸèƒ½: NVICé…ç½®
+  * è¾“å…¥å‚æ•°: æ— 
+  * è¿” å›ž å€¼: æ— 
+  * è¯´    æ˜Ž: æ— 
   */
 static void MX_NVIC_USARTx_Init(void)
 {
@@ -77,33 +77,54 @@ static void MX_NVIC_USARTx_Init(void)
 }
 
 /**
-  * º¯Êý¹¦ÄÜ: ´®¿Ú²ÎÊýÅäÖÃ.
-  * ÊäÈë²ÎÊý: ÎÞ
-  * ·µ »Ø Öµ: ÎÞ
-  * Ëµ    Ã÷£ºÎÞ
+  * å‡½æ•°åŠŸèƒ½: ä¸²å£å‚æ•°é…ç½®.
+  * è¾“å…¥å‚æ•°: æ— 
+  * è¿” å›ž å€¼: æ— 
+  * è¯´    æ˜Žï¼šæ— 
   */
 void MX_USARTx_Init(void)
 {
-  /* ´®¿ÚÍâÉèÊ±ÖÓÊ¹ÄÜ */
+  /* ä¸²å£å¤–è®¾æ—¶é’Ÿä½¿èƒ½ */
   USART_RCC_CLK_ENABLE();
   
-  // ´®¿Ú£¨ÍâÉè£©³õÊ¼»¯½á¹¹Ìå
-  UART_InitTypeDef init;
-  
-
+  // ä¸²å£ï¼ˆå¤–è®¾ï¼‰åˆå§‹åŒ–ç»“æž„ä½“
   husartx.Instance = USARTx;
-  // husartx.Init = init; 
-    husartx.Init.BaudRate = USARTx_BAUDRATE;          // ²¨ÌØÂÊ
-  husartx.Init.WordLength = UART_WORDLENGTH_8B;     // ×Ö³¤8Î»
-  husartx.Init.StopBits = UART_STOPBITS_1;          // Í£Ö¹Î» 1Î»
-  husartx.Init.Parity = UART_PARITY_NONE;           // Ð£ÑéÎ» ÎÞ
-  husartx.Init.Mode = UART_MODE_TX_RX;              // Ä£Ê½£¬·¢ËÍ½ÓÊÕÄ£Ê½
-  husartx.Init.HwFlowCtl = UART_HWCONTROL_NONE;     // Ó²¼þ¿ØÖÆÁ÷ ÎÞ
-  husartx.Init.OverSampling = UART_OVERSAMPLING_16; // ¹ý²ÉÑù 16
+  husartx.Init.BaudRate = USARTx_BAUDRATE;          // æ³¢ç‰¹çŽ‡
+  husartx.Init.WordLength = UART_WORDLENGTH_8B;     // å­—é•¿8ä½
+  husartx.Init.StopBits = UART_STOPBITS_1;          // åœæ­¢ä½ 1ä½
+  husartx.Init.Parity = UART_PARITY_NONE;           // æ ¡éªŒä½ æ— 
+  husartx.Init.Mode = UART_MODE_TX_RX;              // æ¨¡å¼ï¼Œå‘é€æŽ¥æ”¶æ¨¡å¼
+  husartx.Init.HwFlowCtl = UART_HWCONTROL_NONE;     // ç¡¬ä»¶æŽ§åˆ¶æµ æ— 
+  husartx.Init.OverSampling = UART_OVERSAMPLING_16; // è¿‡é‡‡æ · 16
   
-  // ³õÊ¼»¯´®¿Ú²ÎÊý£¬¹ØÁª´®¿Ú¾ä±ú½á¹¹Ìå
+  // åˆå§‹åŒ–ä¸²å£å‚æ•°ï¼Œå…³è”ä¸²å£å¥æŸ„ç»“æž„ä½“
   HAL_UART_Init(&husartx);
   
-  /* ÅäÖÃ´®¿ÚÖÐ¶Ï²¢Ê¹ÄÜ£¬ÐèÒª·ÅÔÚHAL_UART_Initº¯ÊýºóÖ´ÐÐÐÞ¸Ä²ÅÓÐÐ§ */
+  /* é…ç½®ä¸²å£ä¸­æ–­å¹¶ä½¿èƒ½ï¼Œéœ€è¦æ”¾åœ¨HAL_UART_Initå‡½æ•°åŽæ‰§è¡Œä¿®æ”¹æ‰æœ‰æ•ˆ */
   MX_NVIC_USARTx_Init();
+}
+
+/**
+  * å‡½æ•°åŠŸèƒ½: é‡å®šå‘cåº“å‡½æ•°printfåˆ°USARTx
+  * è¾“å…¥å‚æ•°: æ— 
+  * è¿” å›ž å€¼: æ— 
+  * è¯´    æ˜Žï¼šæ— 
+  */
+int fputc(int ch, FILE *f)
+{
+  HAL_UART_Transmit(&husartx, (uint8_t *)&ch, 1, 0xffff);
+  return ch;
+}
+
+/**
+  * å‡½æ•°åŠŸèƒ½: é‡å®šå‘cåº“å‡½æ•°getchar,scanfåˆ°USARTx
+  * è¾“å…¥å‚æ•°: æ— 
+  * è¿” å›ž å€¼: æ— 
+  * è¯´    æ˜Žï¼šæ— 
+  */
+int fgetc(FILE * f)
+{
+  uint8_t ch = 0;
+  HAL_UART_Receive(&husartx,&ch, 1, 0xffff);
+  return ch;
 }
