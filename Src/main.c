@@ -74,14 +74,20 @@ int main(void)
   /* 設置狀態寄存器（SR）的RXNE爲1，使能接收中断，接收數據時进入中断回调函数 */
   HAL_UART_Receive_IT(&husartx,&aRxBuffer,1);
   
+  static float float_num=0.00;
+  
   /* Infinite loop */
   while (1)
   {
     LED1_ON;
     HAL_Delay(1000);
     LED1_OFF;
-    HAL_Delay(1000);
-  }
+    HAL_Delay(1000);    
+ 
+	float_num+=0.01f;
+    printf("float_num的值为: %.4f\r\n",float_num);
+   }
+     
 }
 
 

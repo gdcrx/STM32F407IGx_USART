@@ -27,7 +27,7 @@ CStepIntDis=_ 0
 stlinkserialNo=B6738843
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=2088748287
+Checksum=-36010187
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
